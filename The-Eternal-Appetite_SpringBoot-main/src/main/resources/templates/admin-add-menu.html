@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Menu Item - Admin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #fff8f5;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            background-color: #d98880;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+        .form-section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-top: 40px;
+        }
+
+        .btn-theme {
+            background-color: #d98880;
+            color: white;
+            border: none;
+        }
+
+        .btn-theme:hover {
+            background-color: #c96c66;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/admin/dashboard">The Eternal Appetite (Admin)</a>
+</nav>
+
+<div class="container">
+    <div class="form-section">
+        <h3 class="text-center mb-4">Add Menu Item 🍕</h3>
+        
+        <form th:action="@{/admin/menu/add}" th:object="${menuItem}" method="post">
+
+            <!-- Name Field -->
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" th:field="*{name}" required
+                       placeholder="Enter item name">
+            </div>
+
+            <!-- Price Field -->
+            <div class="form-group">
+                <label>Price</label>
+                <input type="number" class="form-control" th:field="*{price}"
+       step="0.01" min="50" max="1000" required
+       placeholder="Enter price (₹50 to ₹1000)">
+
+            </div>
+
+            <!-- Description Field -->
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" th:field="*{description}" rows="3" required
+                          placeholder="Enter item description"></textarea>
+            </div>
+
+            <!-- Category Field -->
+            <div class="form-group">
+                <label>Category</label>
+                <select class="form-control" th:field="*{category}" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option th:each="cat : ${categories}"
+                            th:value="${cat.id}"
+                            th:text="${cat.name}"></option>
+                </select>
+            </div>
+
+            <!-- Image URL Field (Required) -->
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" class="form-control" th:field="*{imageUrl}" required
+                       placeholder="Paste image URL">
+            </div>
+
+            <!-- Buttons -->
+            <button type="submit" class="btn btn-theme mt-3">Add Item</button>
+            <a href="/admin/dashboard" class="btn btn-secondary mt-3 ml-2">Cancel</a>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

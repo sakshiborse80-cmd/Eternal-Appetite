@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+           background-color: #fff8f5;
+
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-wrapper {
+            flex: 1;
+        }
+
+        .confirmation-box {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 80px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .footer {
+            background-color: #d98880;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .btn-theme {
+            background-color: #d98880;
+            color: white;
+            border: none;
+        }
+
+        .btn-theme:hover {
+            background-color: #c96c66;
+        }
+
+        .navbar {
+            background-color: #d98880;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            color: #fbeee9 !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ✅ NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/">The Eternal Appetite</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/order/history}">View Orders</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ✅ CONTENT -->
+<div class="content-wrapper">
+    <div class="confirmation-box">
+        <h2>Thank you for your order, <span th:text="${customerName}">Customer</span>! 🎉</h2>
+
+        <p><strong>Order ID:</strong> <span th:text="${orderId}">123456</span></p>
+        <p><strong>Total Price:</strong> ₹<span th:text="${totalPrice}">0.00</span></p>
+        <p><strong>Status:</strong> <span th:text="${status}">Pending</span></p>
+        <p><strong>Payment Method:</strong> <span th:text="${paymentMethod}">N/A</span></p>
+
+        <p>We will begin processing your order shortly. 😊</p>
+
+        <a href="/" class="btn btn-theme mt-3">← Back to Home</a>
+    </div>
+</div>
+
+<!-- ✅ FOOTER Stick to Bottom -->
+<div class="footer">
+    &copy; 2025 The Eternal Appetite. All rights reserved.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Checkout</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fff8f5;
+        }
+
+        .page-wrapper {
+            min-height: calc(100vh - 60px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .checkout-form {
+            background-color: #fff;
+            padding: 25px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .checkout-form label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        .checkout-form input,
+        .checkout-form textarea,
+        .checkout-form select {
+            width: 100%;
+            padding: 12px 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .checkout-form button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background-color: #d98880;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* ✅ Navbar fix */
+        .navbar {
+            background-color: #d98880;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            color: #fbeee9 !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ✅ Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/" style="font-size: 1.5rem;">The Eternal Appetite</a>
+    </div>
+</nav>
+
+<!-- ✅ Checkout Form -->
+<div class="page-wrapper">
+    <div class="checkout-form">
+        <h2>Checkout</h2>
+
+        <form id="checkoutForm" th:action="@{/review-order}" method="post">
+            <label>Full Name:</label>
+            <input type="text" name="fullName" id="fullName" required minlength="2" placeholder="Enter full name">
+
+            <label>Phone Number:</label>
+            <input type="text" name="phoneNumber" id="phoneNumber" required pattern="\d{10}" placeholder="10-digit mobile number">
+
+            <label>Address:</label>
+            <textarea name="address" id="address" required placeholder="Complete address"></textarea>
+
+            <label>City:</label>
+            <input type="text" name="city" id="city" required>
+
+            <label>Pincode:</label>
+            <input type="text" name="pincode" id="pincode" required pattern="\d{6}" placeholder="6-digit pincode">
+
+            <label>Payment Method:</label>
+            <select id="paymentMethod" name="paymentMethod" required>
+                <option value="" disabled selected hidden>-- Select Payment --</option>
+                <option value="COD">Cash on Delivery</option>
+                <option value="ONLINE">Online Payment</option>
+            </select>
+
+            <button type="submit">Review Order</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

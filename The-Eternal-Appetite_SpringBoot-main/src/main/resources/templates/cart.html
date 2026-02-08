@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Cart</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff8f5;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        .navbar {
+            background-color: #d98880;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            color: #fbeee9 !important;
+        }
+
+        .footer {
+            background-color: #d98880;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .table thead {
+            background-color: #f8d7da;
+        }
+
+        /* New Button Styles */
+        .btn-continue {
+            background-color: #c96c66;
+            color: white;
+            border: none;
+        }
+
+        .btn-continue:hover {
+            background-color: #b85c58;
+        }
+
+        .btn-empty {
+            background-color: #e0a5a2;
+            color: white;
+            border: none;
+        }
+
+        .btn-empty:hover {
+            background-color: #cf8b87;
+        }
+
+        .btn-checkout {
+            background-color: #d98880;
+            color: white;
+            border: none;
+        }
+
+        .btn-checkout:hover {
+            background-color: #c96c66;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ✅ Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/">The Eternal Appetite</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon">☰</span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/category">Category</a></li>
+                <li class="nav-item"><a class="nav-link" href="/order/history">Order History</a></li>
+                <li class="nav-item">
+        <a class="nav-link" th:href="@{/cart}">
+            🛒 Cart
+            <span class="badge bg-white text-dark"
+                  th:text="${session.cart != null ? session.cart.size() : 0}">0</span>
+        </a>
+    </li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ✅ Cart Content -->
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Your Cart 🛒</h2>
+
+    <div th:if="${#lists.isEmpty(cart)}">
+        <p class="text-center">Your cart is empty.</p>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(cart)}">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${cart}">
+                    <td th:text="${item.name}"></td>
+                    <td th:text="'₹' + ${item.price}"></td>
+                    <td>
+                        <form th:action="@{'/cart/update-quantity/' + ${item.menuItemId} + '/decrease'}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary">−</button>
+                        </form>
+                        <span style="margin: 0 10px;">[[${item.quantity}]]</span>
+                        <form th:action="@{'/cart/update-quantity/' + ${item.menuItemId} + '/increase'}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
+                        </form>
+                    </td>
+                    <td th:text="'₹' + ${item.price * item.quantity}"></td>
+                    <td>
+                        <a th:href="@{/cart/remove/{id}(id=${item.menuItemId})}" class="btn btn-danger btn-sm">Remove</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="text-end mt-4">
+            Total Amount: ₹ <span th:text="${#numbers.formatDecimal(totalAmount, 1, 2)}"></span>
+        </h4>
+    </div>
+
+    <!-- ✅ Action Buttons -->
+    <div class="text-center mt-4 mb-4">
+        <a href="/" class="btn btn-continue me-2">Continue </a>
+        <a th:href="@{/cart/empty}" class="btn btn-empty me-2">Empty Cart</a>
+        <a th:href="@{/checkout}" class="btn btn-checkout">Proceed to Checkout</a>
+    </div>
+</div>
+
+<!-- ✅ Footer -->
+<div class="footer">
+    &copy; 2025 The Eternal Appetite. All rights reserved.
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

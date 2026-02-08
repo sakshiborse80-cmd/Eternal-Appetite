@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Orders (Admin)</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #fff8f5;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+          .navbar {
+            background-color: #d98880;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #d98880;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .table th {
+            background-color: #d98880;
+            color: white;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+        }
+
+        ul {
+            padding-left: 15px;
+            margin-bottom: 0;
+        }
+
+        li {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/admin/dashboard">The Eternal Appetite (Admin)</a>
+</nav>
+
+
+<div class="container">
+    <h2>📦 All Orders (Admin View)</h2>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Total Price</th>
+                <th>Order Time</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}">1</td>
+                <td th:text="${order.customerName}">Name</td>
+                <td>
+                    <ul>
+                        <li th:each="item : ${order.orderItems}">
+                            <span th:text="${item.itemName}">Item</span> × 
+                            <span th:text="${item.quantity}">1</span>
+                        </li>
+                    </ul>
+                </td>
+                <td th:text="${order.totalPrice}">0.00</td>
+                <td th:text="${#temporals.format(order.orderTime, 'dd MMM yyyy HH:mm')}">Date</td>
+                <td th:text="${order.paymentMethod}">COD</td>
+
+                <!-- ✅ Status update form -->
+                <td>
+                    <form method="post" th:action="@{/admin/update-status}" class="d-flex align-items-center">
+    <input type="hidden" name="orderId" th:value="${order.id}" />
+    <select name="newStatus" class="form-select form-select-sm me-2" onchange="this.form.submit()">
+        <option value="Pending" th:selected="${order.status == 'Pending'}">Pending</option>
+        <option value="Preparing" th:selected="${order.status == 'Preparing'}">Preparing</option>
+        <option value="Delivered" th:selected="${order.status == 'Delivered'}">Delivered</option>
+    </select>
+</form>
+
+                </td>
+
+                <td>
+                    <a th:href="@{/admin/order/details/{id}(id=${order.id})}" class="btn btn-info btn-sm mt-1">View Details</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center my-4">
+    <a href="/admin/dashboard" class="btn btn-success">🏠 Back to Admin Dashboard</a>
+</div>
+
+<div class="footer">
+    &copy; 2025 The Eternal Appetite. All rights reserved.
+</div>
+
+</body>
+</html>

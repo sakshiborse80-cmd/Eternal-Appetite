@@ -1,0 +1,17 @@
+# Ignore sensitive Spring config
+src/main/resources/application.properties
+
+# Ignore IDE specific files
+.classpath
+.project
+.settings/
+
+# Ignore build files
+/target/
+
+# Ignore OS specific files
+.DS_Store
+Thumbs.db
+
+# Optional: Ignore log files
+*.log

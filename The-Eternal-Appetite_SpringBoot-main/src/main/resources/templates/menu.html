@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menu</title>
+    <style>
+        body {
+            background-color: #fff8f0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+        }
+
+        select, button {
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .card h3 {
+            margin: 10px 0 5px;
+        }
+
+        .card p {
+            color: #555;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-outline-secondary {
+            background-color: transparent;
+            border: 1px solid #6c757d;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <form method="get" th:action="@{/menu}">
+        <label for="category">Filter by Category:</label>
+        <select name="category" id="category">
+            <option value="" th:selected="${selectedCategory == null}">All</option>
+            <option th:each="cat : ${categories}"
+                    th:value="${cat.name}"
+                    th:text="${cat.name}"
+                    th:selected="${selectedCategory == cat.name}">
+            </option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <div class="grid">
+        <div class="card" th:each="item : ${menuItems}">
+
+            <img th:if="${item.imageUrl != null and !#strings.isEmpty(item.imageUrl)}"
+                 th:src="@{${item.imageUrl}}"
+                 alt="Food Image"/>
+
+            <h3 th:text="${item.name}">Item Name</h3>
+            <p th:text="${item.description}">Description</p>
+            <p><strong>₹</strong><span th:text="${item.price}">0.00</span></p>
+
+            <!-- ✅ Add to Cart if user is logged in -->
+            <div th:if="${session.user != null}">
+                <a th:href="@{'/add-to-cart/' + ${item.id}}"
+                   class="btn btn-success"
+                   style="margin-top: 10px; display: inline-block;">Add to Cart</a>
+            </div>
+
+            <!-- ❌ Ask to login if user not logged in -->
+            <div th:if="${session.user == null}">
+                <a th:href="@{/login}"
+                   class="btn btn-outline-secondary"
+                   style="margin-top: 10px; display: inline-block;">Login to Add</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

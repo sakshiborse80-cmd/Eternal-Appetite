@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>About Us - The Eternal Appetite</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #fff8f5;
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+         nav {
+            background-color: #d98880;
+            padding: 8px 20px;
+        }
+
+        nav .navbar-brand {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav .nav-link {
+            color: white;
+            font-weight: 500;
+        }
+
+        nav .nav-link:hover {
+            text-decoration: underline;
+        }
+        
+        
+
+        .about-section {
+            background-color: white;
+            margin: 40px auto;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+        }
+
+        h2 {
+            color: #d98880;
+        }
+
+        /* 🎯 Animation classes */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1s; }
+
+        /* 🔘 Back to Home Button */
+        .btn-home {
+            background-color: #d98880;
+            color: white !important;
+            border: none;
+            padding: 6px 14px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-home:hover {
+            background-color: #c87572;
+            color: white !important;
+            text-decoration: none;
+        }
+        
+          footer {
+            background-color: #d98880;
+            color: #4e342e;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            border-top: 1px solid #e7c4b8;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ✅ Navbar -->
+<nav class="navbar navbar-expand-lg" style="background-color: #d98880;">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="/" style="font-size: 1.2rem;">
+            The Eternal Appetite
+        </a>
+    </div>
+</nav>
+
+<!-- ✅ About Section -->
+<div class="container">
+    <div class="about-section">
+        <h2 class="text-center mb-4 fade-in-up delay-1">Our Story Begins With a Craving...</h2>
+
+        <p class="fade-in-up delay-2">
+            Not just for food — but for comfort, for connection, for that one place where time slows down and your plate feels like home.
+        </p>
+
+        <p class="fade-in-up delay-3">
+            At <strong>The Eternal Appetite</strong>, we believe every craving tells a story. A long day that needs cheesy pasta. A friendship that begins over fries. A heartbreak healed by sizzling momos. A memory built over a shared brownie bomb.
+        </p>
+
+        <p class="fade-in-up delay-4">
+            We're not chasing trends. We're chasing that smile you get on your first bite. The way your eyes light up when your favourite dish lands on the table.
+        </p>
+
+        <p class="fade-in-up delay-5">
+            This café was built on the idea that food can be more than fuel — it can be a feeling. And here, that feeling is forever.
+        </p>
+
+        <p class="text-right fade-in-up delay-5"><em>— Still hungry? You’re in the right place.</em></p>
+    </div>
+
+    <!-- 🔘 Back to Home Button Center Aligned -->
+    <div class="text-center">
+        <a href="/" class="btn-home">← Back to Home</a>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 The Eternal Appetite. All rights reserved.
+</footer>
+
+</body>
+</html>
